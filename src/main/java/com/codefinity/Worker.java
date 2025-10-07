@@ -14,5 +14,13 @@ public class Worker implements Runnable {
     @Override
     public void run() {
         //TODO
+        try {
+            semaphore.acquire();
+            resource.use();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        } finally {
+            semaphore.release();
+        }
     }
 }
